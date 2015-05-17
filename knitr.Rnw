@@ -5,7 +5,7 @@
 \usepackage{amsmath}
 
 \title{Project 8: Statslab}
-\author{Sarah Grimm}
+\author{Ko//frankie}
 
 \begin{document}
 
