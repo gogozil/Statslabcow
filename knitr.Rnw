@@ -4,7 +4,7 @@
 \usepackage{cleveref}
 \usepackage{amsmath}
 
-\title{Working with knitr}
+\title{Project 8: Statslab}
 \author{Sarah Grimm}
 
 \begin{document}
