@@ -11,7 +11,7 @@
 
 
 \maketitle
-
+Genau.
 In this short \texttt{knitr} example you will see how to
 \begin{itemize}
 \item create tables;
@@ -87,6 +87,7 @@ print.xtable(xtable(summ, caption = cap, label = "tab:reg" ))
 @
 
 \cref{tab:reg} contains the coefficient estimates of our regression \dots
+
 
 \end{document}
 
