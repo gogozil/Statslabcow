@@ -1,0 +1,107 @@
+\documentclass[a4paper]{article}
+
+\usepackage{subfig}
+\usepackage{cleveref}
+\usepackage{amsmath}
+
+\title{Working with knitr}
+\author{Sarah Grimm}
+
+\begin{document}
+
+
+\maketitle
+
+In this short \texttt{knitr} example you will see how to
+\begin{itemize}
+\item create tables;
+\item create plots, captions, subcaptions, labels and how to use them in-text;
+\item and set global chunk options.
+\end{itemize}
+You will use some (just some, as there are many) of the commonly used chunk options in order to get the output as desired. At the end of the document you can find a few more useful tips and links to get you started with \texttt{knitr}.
+
+\section{Introduction}
+
+<< setup, echo= FALSE, results='asis'>>=
+## define global chunk options if you will use them often:
+opts_chunk$set(fig.pos='H', message=FALSE, 
+               cache=TRUE, warning=FALSE,
+               fig.align='center', comment ="")
+
+# install packages, global settings, etc.
+require(ggplot2, quietly = TRUE)
+require(xtable, quietly = TRUE)
+# read.data...
+treedata <- trees
+datatable <- data.frame( Variable = colnames(treedata),
+                          Class = apply(treedata, 2, class)) 
+
+print(xtable(datatable),
+       include.rownames = FALSE )
+
+treedata <- treedata[-1,]
+@
+
+There were \Sexpr{nrow(treedata)} trees measured. \dots
+
+\section{Data Exploration}
+
+<< treeplot, echo = FALSE, out.width='.5\\textwidth', fig.cap='First plots with \\texttt{knitr}.', fig.subcap=c('Height vs. girth of trees.', 'Volume vs. girth of trees.')>>=
+ggplot(data = treedata,
+       aes(x = Girth,
+           y = Height)) + 
+  geom_point() + theme_bw()
+
+ggplot(data = treedata,
+       aes(x = Girth,
+           y = Volume)) + 
+  geom_point() + theme_bw()
+
+## these chunk options will:
+# not show the code (echo)
+# make the width of the figures (out.width) .5\textwidth 
+    # (remember, need to use two \\ to escape the escape character in R)
+# add one main figure caption for both figures (fig.cap)
+# add a subcaption for each figure (fig.subcap), thus making the two figures part of one
+    # (If you would like separate figures, feed fig.cap a character vector the same 
+    # length as the number of figures. Giving them one common caption and separate 
+    # subcaptions will make them one figure.)
+# automatically create labels for in-text referencing for both the figure and subfigures by using the chunk name, e.g. fig:treeplot, fig:treeplot1 and fig:treeplot2
+@
+
+As we can see in \cref{fig:treeplot2}, there is a clear relationship between volume and girth of trees. \dots
+
+\section{Results}
+
+<<reg, echo = FALSE, results='asis'>>=
+mod <- lm(Height ~ Volume + Girth, data = treedata)
+summ <- summary(mod)
+# add prettier name to intercept in output table
+dimnames(summ$coefficients)[[1]][1] <- "Intercept"
+
+cap <- "Linear regression results." 
+print.xtable(xtable(summ, caption = cap, label = "tab:reg" ))
+
+## add this chunk option if you want the model call to be shown:
+# echo = 1
+@
+
+\cref{tab:reg} contains the coefficient estimates of our regression \dots
+
+\end{document}
+
+% Note: all chunk options must be on one line
+
+% There's lots and lots of help online. To get you started:
+% chunk options: http://yihui.name/knitr/options/
+% tons of examples: http://yihui.name/knitr/demos/
+
+% You will see that your folder will contain a figure subfolder, a cache subfolder, and the .tex file - more organized than if using Sweave.
+
+% You will find online (http://stat.ethz.ch/education/semesters/ss2015/StatsLab/Material) a template for your report. Copy this .tex file into a new, empty .Rnw file, and work from there as we did in this example (add chunks, etc.). This template will already include useful packages for you in the preamble.
+
+% If you want to work with knitr, you will have to: change some default setting in RStudio:
+% - install latest RStudio version and knitr package
+% - go to Global options (under Tools) and under "Sweave" change default Sweave to knitr (also have to do this in Emacs)
+% - might need to install pdflatex onto your computers
+
