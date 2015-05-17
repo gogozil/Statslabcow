@@ -90,7 +90,8 @@ print.xtable(xtable(summ, caption = cap, label = "tab:reg" ))
 
 \cref{tab:reg} contains the coefficient estimates of our regression \dots
 hoe gaat het
-
+add something
+hee hee
 \end{document}
 
 % Note: all chunk options must be on one line
