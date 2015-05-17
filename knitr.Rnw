@@ -4,7 +4,7 @@
 \usepackage{cleveref}
 \usepackage{amsmath}
 
-\title{Project 8: Statslab}
+\title{Project 8: Statslab Cow Lab}
 \author{Sarah Grimm}
 
 \begin{document}
