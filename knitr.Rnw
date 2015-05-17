@@ -13,6 +13,7 @@
 
 \maketitle
 Genau.
+This is totally stupid.
 In this short \texttt{knitr} example you will see how to
 \begin{itemize}
 \item create tables;
