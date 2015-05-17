@@ -88,7 +88,7 @@ print.xtable(xtable(summ, caption = cap, label = "tab:reg" ))
 @
 
 \cref{tab:reg} contains the coefficient estimates of our regression \dots
-hoe gaat het
+HELLO
 add something
 hee hee
 \end{document}
